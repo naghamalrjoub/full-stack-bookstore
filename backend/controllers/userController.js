@@ -1,0 +1,57 @@
+const userModel = require("../models/userSchema")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+
+const register = (req, res) => {
+    const {username, password, email, name} = req.body;
+    const newUser = new userModel({
+        username, name, password, email
+    })
+
+    newUser.save().then((result)=>{
+        res.json(result)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+}
+
+const login = async (req, res) => {
+    const {email, password} = req.body
+    try {
+        const user = await userModel.findOne({email})
+        if (!user) {
+            res.status(404).json("invalid user or password")
+        }
+
+        else {
+            const isValid = bcrypt.compare(password, user.password);
+            if (!isValid) {
+                res.josn("invalid user or password")
+            }
+
+            else {
+                const payload = {
+                    id: user._id,
+                    type: "user",
+                    permission: ["read", "write"] //need to populate
+                }
+                const options = {
+                    expiresIn: "5h"
+                }
+                const userToken = jwt.sign(payload, process.env.SECRET_KEY, options)
+                console.log("logged in")
+                res.json({
+                    success: true,
+                    message: "logged in successfully",
+                    token: userToken
+                })
+            }
+        }
+    }
+
+    catch(err) {
+        res.status(500).json(err)
+    }
+}
+
+module.exports = {register, login}
