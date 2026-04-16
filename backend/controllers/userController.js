@@ -24,9 +24,9 @@ const login = async (req, res) => {
         }
 
         else {
-            const isValid = bcrypt.compare(password, user.password);
+            const isValid = await bcrypt.compare(password, user.password);
             if (!isValid) {
-                res.josn("invalid user or password")
+                res.json("invalid user or password")
             }
 
             else {
@@ -54,4 +54,52 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = {register, login}
+const updateData = async (req, res) => {
+    const {username} = req.params;
+    const updates = req.body;
+    try {
+        const user = await userModel.findOne({username});
+        if (!user) {
+            res.status(404).json("not found")
+        }
+
+        else {
+            Object.keys(updates).forEach(key=>{
+                user[key] = updates[key]
+            })
+
+            const updatedUser = await user.save();
+            res.json(updatedUser)
+        }
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
+
+const getUserData = async (req, res) => {
+    const {username} = req.params;
+    try {
+        const user = await userModel.findOne({username});
+        if (!user) {
+            res.status(404).json("user not found")
+        }
+        else {
+            res.json(user)
+        }
+    }
+
+    catch(err) {
+        res.status(500).json(err)
+    }
+}
+
+const getUsers = (req, res) => {
+    userModel.find({}).then((result)=>{
+        res.status(201).json(result)
+    }).catch((err)=>{
+        res.status(500).json(err)
+    })
+}
+
+module.exports = {register, login, updateData, getUserData, getUsers}

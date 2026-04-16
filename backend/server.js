@@ -5,7 +5,7 @@ require("dotenv").config()
 const db = require("./models/db")
 
 const apiRouter = require("./routes/api")
-apiRouter.use("/api", apiRouter)
+app.use("/api", apiRouter)
 
 app.listen(process.env.PORT, ()=> {
     console.log(`server successfully running on port ${process.env.PORT}`)
