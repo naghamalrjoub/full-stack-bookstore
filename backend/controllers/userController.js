@@ -9,7 +9,7 @@ const register = (req, res) => {
     })
 
     newUser.save().then((result)=>{
-        res.json(result)
+        res.status(201).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
     })
@@ -69,7 +69,7 @@ const updateData = async (req, res) => {
             })
 
             const updatedUser = await user.save();
-            res.json(updatedUser)
+            res.status(200).json(updatedUser)
         }
     }
     catch(err){
@@ -85,7 +85,7 @@ const getUserData = async (req, res) => {
             res.status(404).json("user not found")
         }
         else {
-            res.json(user)
+            res.status(200).json(user)
         }
     }
 
@@ -96,7 +96,7 @@ const getUserData = async (req, res) => {
 
 const getUsers = (req, res) => {
     userModel.find({}).then((result)=>{
-        res.status(201).json(result)
+        res.status(200).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
     })

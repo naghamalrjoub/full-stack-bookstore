@@ -9,7 +9,7 @@ const addBook = async (req, res) => {
         })
 
         const saved = await book.save();
-        res.json(saved);
+        res.status(201).json(saved);
     }
 
     catch(err) {
@@ -18,8 +18,8 @@ const addBook = async (req, res) => {
 }
 
 const getAllBooks = (req, res) => {
-    bookModel.find({}).then((result)=>{
-        res.status(201).json(result)
+    bookModel.find({}).populate("author").then((result)=>{
+        res.status(200).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
     })
@@ -27,40 +27,28 @@ const getAllBooks = (req, res) => {
 
 const getBook = (req, res) => {
     const {id} = req.params
-    bookModel.findById(id).then((result)=>{
-        res.status(201).json(result)
+    bookModel.findById(id).populate("author").then((result)=>{
+        res.status(200).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
     })
 }
 
-const updateData = async (req, res) => {
+const updateData = (req, res) => {
     const {id} = req.params;
-    const updates = req.body;
-    try {
-        const book = await bookModel.findById(id);
-        if (!book) {
-            res.status(404).json("not found")
-        }
-
-        else {
-            Object.keys(updates).forEach(key=>{
-                book[key] = updates[key]
-            })
-
-            const updatedBook = await book.save();
-            res.json(updatedBook)
-        }
-    }
-    catch(err){
+    bookModel.findByIdAndUpdate(id, req.body, {
+        new: true, runValidators: true
+    }).then((result)=>{
+        res.status(204).json(result)
+    }).catch(err=>{
         res.status(500).json(err)
-    }
+    })
 }
 
 const deleteBook = (req, res) => {
     const {id} = req.params
     bookModel.findByIdAndDelete(id).then((result)=>{
-        res.status(201).json(result)
+        res.status(204).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
     })
