@@ -76,7 +76,8 @@ const removeWholeItem = async (req, res) => {
         }
 
         else {
-            cart.total -= (book.quantity * book.price)
+            cart.total -= (book.price * book.quantity);
+            book.quantity = (0)
             cart.items = cart.items.filter((elem)=>{
                 return elem.book.toString() === bookId
             })
@@ -91,4 +92,62 @@ const removeWholeItem = async (req, res) => {
     } 
 }
 
-module.exports = {getCart, addToCart, removeWholeItem}
+const decItem = async (req, res) => {
+    const {id, bookId} = req.params;
+    try {
+        const cart = await cartModel.findOne({userId: id})
+        let book = cart.items.find(elem => {
+            return elem.book.toString() === bookId
+        })
+        console.log(book)
+
+        if (!book) {
+            res.status(404).json("not found")
+        }
+
+        else {
+            cart.total -= (book.price)
+            book.quantity -= 1;
+            if (book.quantity === 0)
+                cart.items = cart.items.filter((elem)=>{
+                    return elem.book.toString() === bookId
+                })
+
+            const saved = await cart.save()
+            res.status(200).json(saved)
+        }
+    }
+
+    catch (err) {            
+        res.status(500).json(err)
+    } 
+}
+
+const incItem = async (req, res) => {
+    const {id, bookId} = req.params;
+    try {
+        const cart = await cartModel.findOne({userId: id})
+        let book = cart.items.find(elem => {
+            return elem.book.toString() === bookId
+        })
+        console.log(book)
+
+        if (!book) {
+            res.status(404).json("not found")
+        }
+
+        else {
+            cart.total += (book.price)
+            book.quantity += 1;
+
+            const saved = await cart.save()
+            res.status(200).json(saved)
+        }
+    }
+
+    catch (err) {            
+        res.status(500).json(err)
+    } 
+}
+
+module.exports = {getCart, addToCart, removeWholeItem, decItem, incItem}
