@@ -27,10 +27,14 @@ const addToCart = async (req, res) => {
     try {
         const cart = await cartModel.findOne({userId: id})
         if (!cart) {
-            res.status(404).json("not found")
+            res.status(404).json("cart not found")
         }
         else {
             const _book = await bookModel.findOne({_id: bookId})
+            if (!_book) {
+                return res.status(404).json("no book with this id found")
+            }
+
             const bookPrice = _book.price
             let exists = cart.items.find(elem => {
                 return elem.book.toString() === bookId
@@ -66,24 +70,30 @@ const removeWholeItem = async (req, res) => {
     const {id, bookId} = req.params;
     try {
         const cart = await cartModel.findOne({userId: id})
-        let book = cart.items.find(elem => {
-            return elem.book.toString() === bookId
-        })
-        console.log(book)
+        if(cart) {
+            let book = cart.items.find(elem => {
+                return elem.book.toString() === bookId
+            })
+            console.log(book)
 
-        if (!book) {
-            res.status(404).json("not found")
+            if (!book) {
+                res.status(404).json("not found")
+            }
+
+            else {
+                cart.total -= (book.price * book.quantity);
+                book.quantity = (0)
+                cart.items = cart.items.filter((elem)=>{
+                    return elem.book.toString() === bookId
+                })
+
+                const saved = await cart.save()
+                res.status(200).json(saved)
+            }
         }
 
         else {
-            cart.total -= (book.price * book.quantity);
-            book.quantity = (0)
-            cart.items = cart.items.filter((elem)=>{
-                return elem.book.toString() === bookId
-            })
-
-            const saved = await cart.save()
-            res.status(200).json(saved)
+            res.status(404).json("cart not found")
         }
     }
 
@@ -96,25 +106,31 @@ const decItem = async (req, res) => {
     const {id, bookId} = req.params;
     try {
         const cart = await cartModel.findOne({userId: id})
-        let book = cart.items.find(elem => {
-            return elem.book.toString() === bookId
-        })
-        console.log(book)
 
-        if (!book) {
-            res.status(404).json("not found")
+        if (cart) {
+            let book = cart.items.find(elem => {
+                return elem.book.toString() === bookId
+            })
+            console.log(book)
+
+            if (!book) {
+                res.status(404).json("not found")
+            }
+
+            else {
+                cart.total -= (book.price)
+                book.quantity -= 1;
+                if (book.quantity === 0)
+                    cart.items = cart.items.filter((elem)=>{
+                        return elem.book.toString() === bookId
+                    })
+
+                const saved = await cart.save()
+                res.status(200).json(saved)
+            }
         }
-
         else {
-            cart.total -= (book.price)
-            book.quantity -= 1;
-            if (book.quantity === 0)
-                cart.items = cart.items.filter((elem)=>{
-                    return elem.book.toString() === bookId
-                })
-
-            const saved = await cart.save()
-            res.status(200).json(saved)
+            res.status(404).json("cart not found")
         }
     }
 
@@ -126,22 +142,29 @@ const decItem = async (req, res) => {
 const incItem = async (req, res) => {
     const {id, bookId} = req.params;
     try {
-        const cart = await cartModel.findOne({userId: id})
-        let book = cart.items.find(elem => {
-            return elem.book.toString() === bookId
-        })
-        console.log(book)
 
-        if (!book) {
-            res.status(404).json("not found")
+        if (cart) {
+            const cart = await cartModel.findOne({userId: id})
+            let book = cart.items.find(elem => {
+                return elem.book.toString() === bookId
+            })
+            console.log(book)
+
+            if (!book) {
+                res.status(404).json("not found")
+            }
+
+            else {
+                cart.total += (book.price)
+                book.quantity += 1;
+
+                const saved = await cart.save()
+                res.status(200).json(saved)
+            }
         }
 
         else {
-            cart.total += (book.price)
-            book.quantity += 1;
-
-            const saved = await cart.save()
-            res.status(200).json(saved)
+            res.status(404).json("cart not found")
         }
     }
 

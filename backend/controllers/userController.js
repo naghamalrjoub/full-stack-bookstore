@@ -80,7 +80,7 @@ const updateData = async (req, res) => {
 const getUserData = async (req, res) => {
     const {username} = req.params;
     try {
-        const user = await userModel.findOne({username});
+        const user = await userModel.findOne({username: username});
         if (!user) {
             res.status(404).json("user not found")
         }
