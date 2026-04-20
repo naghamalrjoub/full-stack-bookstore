@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const {register, login, updateData, getUserData, getUsers} = require("../controllers/userController")
 const cartRouter = require("../routes/cartRouter")
 const wishlistRouter = require("../routes/wishlistRouter")
+const favouriteRouter = require("../routes/favouriteRouter")
 
 userRouter.post("/register", register)
 userRouter.get("/profile/:username", getUserData)
@@ -11,5 +12,6 @@ userRouter.post("/login", login)
 userRouter.patch("/:username", updateData)
 userRouter.use("/cart", cartRouter)
 userRouter.use("/wishlist", wishlistRouter)
+userRouter.use("/favourite", favouriteRouter)
 
 module.exports = userRouter;

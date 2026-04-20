@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const cartModel = require("../models/cartSchema");
 const wishlistModel = require("../models/wishlistSchema")
+const favouriteModel = require("../models/favouriteSchema")
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
     email: {type: String, required: true, unique: true},
@@ -29,6 +30,13 @@ userSchema.post("save", async function(){
 
         await cart.save();
         await wishlist.save()
+
+        const favourite = new favouriteModel({
+            userId: this._id,
+            items: []
+        })
+
+        await favourite.save()
     }
 
     catch (err) {

@@ -1,16 +1,16 @@
-const wishlistModel = require("../models/wishlistSchema");
+const favouriteModel = require("../models/favouriteSchema");
 const bookModel = require("../models/bookSchema")
 
-const getWishlist = async (req, res) => {
+const getFavourite = async (req, res) => {
     const {userId} = req.params;
     try {
-        const wishlist = await wishlistModel.findOne({userId: userId}).populate("userId items.book")
-        if (!wishlist) {
+        const favourite = await favouriteModel.findOne({userId: userId}).populate("userId items.book")
+        if (!favourite) {
             res.status(404).json("not found")
         }
 
         else {
-            res.status(200).json(wishlist)
+            res.status(200).json(favourite)
         }
     }
 
@@ -20,18 +20,16 @@ const getWishlist = async (req, res) => {
     }
 }
 
-const addToWishlist = async (req, res) => {
+const addToFavourite = async (req, res) => {
     const {userId, bookId} = req.params;
-    console.log(typeof(bookId))
     try {
-        const wishlist = await wishlistModel.findOne({userId: userId});
-        if (wishlist) {
-            let inWishlist = wishlist.items.find((elem)=>{
-                console.log(typeof(elem.book.toString()))
+        const favourite = await favouriteModel.findOne({userId: userId});
+        if (favourite) {
+            let inFavourite = favourite.items.find((elem)=>{
                 return elem.book.toString() === bookId
             })
 
-            if (inWishlist) {
+            if (inFavourite) {
                 res.status(200).json("book already exists")
             }
 
@@ -42,19 +40,19 @@ const addToWishlist = async (req, res) => {
                 }
 
                 else {
-                    wishlist.items.push({
+                    favourite.items.push({
                         book: bookId,
                         price: book.price
                     })
 
-                    const saved = await wishlist.save()
+                    const saved = await favourite.save()
                     res.status(201).json(saved)
                 }
             }
         }
     
         else {
-            res.status(404).json("no wishlist found")
+            res.status(404).json("no favourite list found")
         }
     }
 
@@ -63,18 +61,17 @@ const addToWishlist = async (req, res) => {
     }
 }
 
-const removeFromWishlist = async (req, res) => {
+const removeFromFavourite = async (req, res) => {
     const {userId, bookId} = req.params;
     try {
-        const wishlist = await wishlistModel.findOne({userId: userId});
-        if (wishlist) {
-            let inWishlist = wishlist.items.find((elem)=>{
-                console.log(typeof(elem.book.toString()))
+        const favourite = await favouriteModel.findOne({userId: userId});
+        if (favourite) {
+            let inFavourite = favourite.items.find((elem)=>{
                 return elem.book.toString() === bookId
             })
 
-            if (!inWishlist) {
-                res.status(404).json("book doesn't exists in wishlist")
+            if (!inFavourite) {
+                res.status(404).json("book doesn't exists in favourite")
             }
 
             else {
@@ -85,18 +82,18 @@ const removeFromWishlist = async (req, res) => {
 
                 else {
                     console.log("here")
-                    wishlist.items = wishlist.items.filter((elem) => {
+                    favourite.items = favourite.items.filter((elem) => {
                         return elem.book.toString() !== bookId
                     })
 
-                    const saved = await wishlist.save()
+                    const saved = await favourite.save()
                     res.status(201).json(saved)
                 }
             }
         }
     
         else {
-            res.status(404).json("no wishlist found")
+            res.status(404).json("no favourite found")
         }
     }
 
@@ -105,4 +102,4 @@ const removeFromWishlist = async (req, res) => {
     }
 }
 
-module.exports = {getWishlist, addToWishlist, removeFromWishlist}
+module.exports = {getFavourite, addToFavourite, removeFromFavourite}
