@@ -65,4 +65,48 @@ const addToWishlist = async (req, res) => {
     }
 }
 
-module.exports = {getWishlist, addToWishlist}
+const removeFromWishlist = async (req, res) => {
+    const {userId, bookId} = req.params;
+    // userid: 69e5fcdfd27d88217c36f06f
+    // bookid: 69e358f99ce6a55cb96a78b3
+    try {
+        const wishlist = await wishlistModel.findOne({userId: userId});
+        if (wishlist) {
+            let inWishlist = wishlist.items.find((elem)=>{
+                console.log(typeof(elem.book.toString()))
+                return elem.book.toString() === bookId
+            })
+
+            if (!inWishlist) {
+                res.status(404).json("book doesn't exists in wishlist")
+            }
+
+            else {
+                const book = await bookModel.findById(bookId);
+                if (!book) {
+                    res.status(404).json("no book with this id found")
+                }
+
+                else {
+                    console.log("here")
+                    wishlist.items = wishlist.items.filter((elem) => {
+                        return elem.book.toString() !== bookId
+                    })
+
+                    const saved = await wishlist.save()
+                    res.status(201).json(saved)
+                }
+            }
+        }
+    
+        else {
+            res.status(404).json("no wishlist found")
+        }
+    }
+
+    catch (err){
+        res.status(500).json(err)
+    }
+}
+
+module.exports = {getWishlist, addToWishlist, removeFromWishlist}

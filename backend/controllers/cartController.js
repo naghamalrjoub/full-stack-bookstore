@@ -84,7 +84,7 @@ const removeWholeItem = async (req, res) => {
                 cart.total -= (book.price * book.quantity);
                 book.quantity = (0)
                 cart.items = cart.items.filter((elem)=>{
-                    return elem.book.toString() === bookId
+                    return elem.book.toString() !== bookId
                 })
 
                 const saved = await cart.save()
@@ -122,7 +122,7 @@ const decItem = async (req, res) => {
                 book.quantity -= 1;
                 if (book.quantity === 0)
                     cart.items = cart.items.filter((elem)=>{
-                        return elem.book.toString() === bookId
+                        return elem.book.toString() !== bookId
                     })
 
                 const saved = await cart.save()
