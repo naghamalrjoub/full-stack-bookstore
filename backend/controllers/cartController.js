@@ -2,7 +2,7 @@ const cartModel = require("../models/cartSchema");
 const bookModel = require("../models/bookSchema");
 
 const getCart = async (req, res) => {
-    const {id} = req.params;
+    const id = req.user._id;
     console.log(id)
     try {
         const cart = await cartModel.findOne({userId: id}).populate("userId items.book")
@@ -21,7 +21,8 @@ const getCart = async (req, res) => {
 }
 
 const addToCart = async (req, res) => {
-    const {id, bookId} = req.params;
+    const {id} = req.user._id;
+    const {bookId} = req.params;
     console.log(bookId)
 
     try {
@@ -67,7 +68,8 @@ const addToCart = async (req, res) => {
 }
 
 const removeWholeItem = async (req, res) => {
-    const {id, bookId} = req.params;
+    const id = req.user._id;
+    const {bookId} = req.params;
     try {
         const cart = await cartModel.findOne({userId: id})
         if(cart) {
@@ -103,7 +105,8 @@ const removeWholeItem = async (req, res) => {
 }
 
 const decItem = async (req, res) => {
-    const {id, bookId} = req.params;
+    const id = req.user._id;
+    const {bookId} = req.params;
     try {
         const cart = await cartModel.findOne({userId: id})
 
@@ -140,7 +143,8 @@ const decItem = async (req, res) => {
 }
 
 const incItem = async (req, res) => {
-    const {id, bookId} = req.params;
+    const id = req.user._id;
+    const {bookId} = req.params;
     try {
 
         if (cart) {

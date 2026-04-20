@@ -54,7 +54,7 @@ const login = async (req, res) => {
 }
 
 const updateData = async (req, res) => {
-    const {id} = req.params;
+    const id = req.user._id;
     const updates = req.body;
     try {
         const user = await userModel.findById(id);
@@ -77,7 +77,7 @@ const updateData = async (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-    const {id} = req.params;
+    const id = req.user._id;
     try {
         const user = await userModel.findOne(id);
         if (!user) {

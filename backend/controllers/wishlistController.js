@@ -2,7 +2,7 @@ const wishlistModel = require("../models/wishlistSchema");
 const bookModel = require("../models/bookSchema")
 
 const getWishlist = async (req, res) => {
-    const {userId} = req.params;
+    const userId = req.user._id;
     try {
         const wishlist = await wishlistModel.findOne({userId: userId}).populate("userId items.book")
         if (!wishlist) {
@@ -21,7 +21,8 @@ const getWishlist = async (req, res) => {
 }
 
 const addToWishlist = async (req, res) => {
-    const {userId, bookId} = req.params;
+    const userId = req.user._id;
+    const {bookId} = req.params;
     console.log(typeof(bookId))
     try {
         const wishlist = await wishlistModel.findOne({userId: userId});
@@ -64,7 +65,8 @@ const addToWishlist = async (req, res) => {
 }
 
 const removeFromWishlist = async (req, res) => {
-    const {userId, bookId} = req.params;
+    const userId = req.user._id;
+    const {bookId} = req.params;
     try {
         const wishlist = await wishlistModel.findOne({userId: userId});
         if (wishlist) {

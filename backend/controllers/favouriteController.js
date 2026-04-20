@@ -2,7 +2,7 @@ const favouriteModel = require("../models/favouriteSchema");
 const bookModel = require("../models/bookSchema")
 
 const getFavourite = async (req, res) => {
-    const {userId} = req.params;
+    const userId = req.user._id;
     try {
         const favourite = await favouriteModel.findOne({userId: userId}).populate("userId items.book")
         if (!favourite) {
@@ -21,7 +21,8 @@ const getFavourite = async (req, res) => {
 }
 
 const addToFavourite = async (req, res) => {
-    const {userId, bookId} = req.params;
+    const userId = req.user._id;
+    const {bookId} = req.params;
     try {
         const favourite = await favouriteModel.findOne({userId: userId});
         if (favourite) {
@@ -62,7 +63,8 @@ const addToFavourite = async (req, res) => {
 }
 
 const removeFromFavourite = async (req, res) => {
-    const {userId, bookId} = req.params;
+    const userId = req.user._id;
+    const {bookId} = req.params;
     try {
         const favourite = await favouriteModel.findOne({userId: userId});
         if (favourite) {
