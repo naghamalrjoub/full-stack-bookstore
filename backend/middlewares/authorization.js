@@ -1,20 +1,23 @@
-const authorization = (...roles) => (req, res, next) => {
-    if (roles.include(req.user.role)) {
-        next();
-    }
+const authorization = (...roles) => {
+    return (req, res, next) => {
+        if (roles.includes(req.user.role)) {
+            next();
+        }
 
-    else {
-        res.status(403).json("access denied")
-    }
-}   
-
+        else {
+            return res.status(403).json("access denied")
+        }
+    }      
+}
+ 
 const updateAuthorization = (req, res, next) => {
+    console.log(req.params.id)
     if (req.params.id === req.user.id || req.user.role.toLowerCase() === "admin") {
         next();
     }
 
     else {
-        res.status(403).json("access denied")
+        return res.status(403).json("access denied")
     }
 }
 

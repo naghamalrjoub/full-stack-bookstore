@@ -8,12 +8,12 @@ const authentication = require("../middlewares/authentication")
 const {authorization, updateAuthorization} = require("../middlewares/authorization")
 
 userRouter.post("/register", register)
-userRouter.get("/profile/:username", getUserData)
+userRouter.get("/profile/:id", updateAuthorization, getUserData)
 userRouter.get("/", authentication, authorization("admin"), getUsers)
 userRouter.post("/login", login)
-userRouter.patch("/:username", authentication, authorization("admin", "user"), updateAuthorization, updateData)
-userRouter.use("/cart", authentication, authorization("admin", "user"), updateAuthorization, cartRouter)
-userRouter.use("/wishlist", authentication, authorization("admin", "user"), updateAuthorization, wishlistRouter)
-userRouter.use("/favourite", authentication, authorization("admin", "user"), updateAuthorization, favouriteRouter)
+userRouter.patch("/:id", authentication, authorization("admin", "user"), updateAuthorization, updateData)
+userRouter.use("/cart", authentication, authorization("admin", "user"), cartRouter)
+userRouter.use("/wishlist", authentication, authorization("admin", "user"), wishlistRouter)
+userRouter.use("/favourite", authentication, authorization("admin", "user"), favouriteRouter)
 
 module.exports = userRouter;

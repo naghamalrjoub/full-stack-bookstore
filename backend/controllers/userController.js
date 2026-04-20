@@ -54,10 +54,10 @@ const login = async (req, res) => {
 }
 
 const updateData = async (req, res) => {
-    const {username} = req.params;
+    const {id} = req.params;
     const updates = req.body;
     try {
-        const user = await userModel.findOne({username});
+        const user = await userModel.findById(id);
         if (!user) {
             res.status(404).json("not found")
         }
@@ -77,9 +77,9 @@ const updateData = async (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-    const {username} = req.params;
+    const {id} = req.params;
     try {
-        const user = await userModel.findOne({username: username});
+        const user = await userModel.findOne(id);
         if (!user) {
             res.status(404).json("user not found")
         }
