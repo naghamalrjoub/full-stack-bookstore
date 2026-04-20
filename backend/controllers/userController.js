@@ -32,8 +32,7 @@ const login = async (req, res) => {
             else {
                 const payload = {
                     id: user._id,
-                    type: "user",
-                    permission: ["read", "write"] //need to populate
+                    role: user.role
                 }
                 const options = {
                     expiresIn: "5h"
