@@ -9,16 +9,5 @@ const authorization = (...roles) => {
         }
     }      
 }
- 
-const updateAuthorization = (req, res, next) => {
-    console.log(req.params.id)
-    if (req.params.id === req.user.id || req.user.role.toLowerCase() === "admin") {
-        next();
-    }
 
-    else {
-        return res.status(403).json("access denied")
-    }
-}
-
-module.exports = {authorization, updateAuthorization}
+module.exports = authorization

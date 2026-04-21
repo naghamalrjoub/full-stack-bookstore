@@ -54,7 +54,7 @@ const login = async (req, res) => {
 }
 
 const updateData = async (req, res) => {
-    const id = req.user._id;
+    const id = req.user._id || req.params.id;
     const updates = req.body;
     try {
         const user = await userModel.findById(id);
@@ -77,9 +77,9 @@ const updateData = async (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-    const id = req.user._id;
+    const id = req.user._id || req.params.id;
     try {
-        const user = await userModel.findOne(id);
+        const user = await userModel.findById(id).select("-password");
         if (!user) {
             res.status(404).json("user not found")
         }
