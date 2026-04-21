@@ -6,8 +6,8 @@ const Navbar = () => {
     const isLoggedIn = false;
 
   return (
-    <div>
-        <nav className="navbar navbar-dark navbar-expand-lg sticky-top" id='mainNav'>
+    <div className='sticky-top'>
+        <nav className="navbar navbar-dark navbar-expand-lg" id='mainNav'>
             <div className="container-fluid d-flex">
                 <div className='vw-100 d-flex justify-content-between'>
                     <Link to = "/" className='navbar-brand'>Book Shop</Link>

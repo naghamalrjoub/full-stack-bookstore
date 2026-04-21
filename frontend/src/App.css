@@ -1,5 +1,5 @@
 #mainNav {
-    background-color: rgb(85, 40, 40);
+    background-color: rgb(85, 50, 40);
 }
 
 #mainNav * {
@@ -8,15 +8,48 @@
 
 .navButton {
     background-color: rgb(127, 98, 77);
-    border-color:  rgb(85, 40, 40);;
+    border: 1px solid rgb(127, 98, 77);
 }
 
 .navButton:hover {
     background-color: rgb(85, 40, 40);
-    border-color:rgb(127, 98, 77); 
+    border: 1px solid rgb(127, 98, 77);
 }
 
 .navButton:active {
     background-color: rgb(85, 40, 40) !important;
-    border-color:rgb(127, 98, 77) !important; 
+    border: 1px solid rgb(127, 98, 77) !important;
+}
+
+.heroSection {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #5a3e36, #7b5a4f);
+    padding: 60px 0;
+}
+
+.heroSection * {
+    color: rgb(244, 244, 244) 
+}
+
+.category-box {
+    writing-mode: vertical-rl;
+    transform: rotate(360deg);
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+
+    font-weight: bold;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-box.tall {
+    height: 260px;
+    background: rgba(255,255,255,0.2);
+}
+
+.category-box.dark {
+    background: rgba(0,0,0,0.3);
 }
