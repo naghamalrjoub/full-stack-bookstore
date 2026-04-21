@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(252, 238, 229);
+}
+
 #mainNav {
     background-color: rgb(85, 50, 40);
 }
@@ -24,7 +28,6 @@
 .heroSection {
     min-height: 100vh;
     background: linear-gradient(135deg, #5a3e36, #7b5a4f);
-    padding: 60px 0;
 }
 
 .heroSection * {
@@ -52,4 +55,43 @@
 
 .category-box.dark {
     background: rgba(0,0,0,0.3);
+}
+
+.categoriesHome {
+    background-color: rgb(252, 238, 229);
+}
+
+.category-scroll {
+    overflow-x: auto;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-card {
+    min-width: 200px;
+    flex: 0 0 auto;
+    border-radius: 15px;
+    background-color: rgb(254, 246, 241);
+    border: 1px solid #c5bdb5;
+}
+
+.category-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 992px) {
+    .heroRight {
+        margin-top: 25px;
+    }
+
+    .heroSection {
+        padding: 0;
+    }
 }
