@@ -1,0 +1,22 @@
+#mainNav {
+    background-color: rgb(85, 40, 40);
+}
+
+#mainNav * {
+    color: rgb(244, 244, 244)
+}
+
+.navButton {
+    background-color: rgb(127, 98, 77);
+    border-color:  rgb(85, 40, 40);;
+}
+
+.navButton:hover {
+    background-color: rgb(85, 40, 40);
+    border-color:rgb(127, 98, 77); 
+}
+
+.navButton:active {
+    background-color: rgb(85, 40, 40) !important;
+    border-color:rgb(127, 98, 77) !important; 
+}
