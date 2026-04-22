@@ -10,7 +10,7 @@ const FeaturedBook = ({price, title, author}) => {
 
         <div className="card-body d-flex flex-column">
             <h6 className="card-title">{title}</h6>
-            <p className="card-text text-muted">author</p>
+            <p className="card-text text-muted">{author}</p>
             <div className="d-flex justify-content-between align-items-center mt-auto">
                 <span className="fw-500">{price}</span>
                 <Link  to="/books/:id" className='btn btn-outline-primary navButton' style={{color: 'white'}}>view</Link>
