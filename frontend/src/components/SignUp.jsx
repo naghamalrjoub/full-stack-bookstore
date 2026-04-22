@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
   return (
@@ -8,7 +9,7 @@ const SignUp = () => {
                 <div>
                     <div className="mb-3">
                         <lable className="form-label">Email</lable>
-                        <input type="email" className="form-control"/>
+                        <input type="email" className="form-control" placeholder='john.doe@gmail.com'/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Password</label>
@@ -29,7 +30,11 @@ const SignUp = () => {
                         </div>                        
                     </div>
                 </div>
-                <button className="btn navButton" id="signUpButton">Sign Up</button>
+                <div className='d-flex justify-content-between'>
+                    <button className="btn navButton" id="signUpButton">Sign Up</button>
+                    <Link to={'/Login'} style={{color:"rgb(244, 244, 244)"}} className='mt-2'>already have an account</Link>
+                </div>
+                
             </form>
         </div>
   )
