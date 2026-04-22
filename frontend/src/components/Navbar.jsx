@@ -46,7 +46,7 @@ const Navbar = () => {
                             :
                             <>
                                 <li className="nav-item">
-                                    <Link to="/register" className='btn btn-outline-primary navButton'>register</Link>
+                                    <Link to="/Register" className='btn btn-outline-primary navButton'>register</Link>
                                 </li>
                             </>
                         }
