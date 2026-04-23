@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import FeaturedBook from './FeaturedBook'
 
 const books = [
@@ -10,22 +11,33 @@ const books = [
 ]
 
 const FeaturedBooks = () => {
+
+    const [books, setBooks] = useState([]);
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/book?limit=8").then((result)=>{
+            console.log(result.data)
+            setBooks(result.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }, [])
+
   return (
-    <div className='container-fluid mt-2 pt-4 ps-5 pb-5'>
+    <div className='container-fluid mt-2 pt-4 mx-5 pb-5'>
         <h3 className='featured-books' style={{color: "rgb(85, 50, 40)", textDecoration:"underline rgb(129, 100, 80)", textUnderlineOffset:"15px"}}>
             Featured Books
         </h3>
-        <div className="scroll d-flex gap-3 d-flex justify-content-center mt-5 pt-2">
+        <div className="scroll gap-3 d-flex  mt-5 pt-2">
             {
                 books.map(elem=>{
                     return (
-                        <div key={elem.id}>
-                            <FeaturedBook title={elem.title} price={elem.price} author={elem.author}></FeaturedBook>
+                        <div key={elem._id}>
+                            <FeaturedBook title={elem.title} price={elem.price} author={elem.author.name} image={elem.image} id ={elem._id}></FeaturedBook>
                         </div>
                     )
                 })
             }
-            <Link to={"/books"} className="card category-card" style={{width: "17rem"}}>
+            <Link to={"/books"} className="card category-card" style={{width: "10rem"}}>
                     <div className="card-body d-flex align-items-center justify-content-center">
                         <h5 className="card-title mt-2">view more</h5>
                     </div>

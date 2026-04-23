@@ -1,8 +1,11 @@
 import React from 'react'
+import BooksCategoriesNav from '../components/BooksCategoriesNav'
 
 const Books = () => {
   return (
-    <div>Books</div>
+    <div>
+        <BooksCategoriesNav />
+    </div>
   )
 }
 

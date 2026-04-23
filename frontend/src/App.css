@@ -1,5 +1,6 @@
 body {
     background-color: rgb(252, 238, 229);
+    overflow-x: hidden;
 }
 
 #mainNav {
@@ -29,6 +30,14 @@ body {
 .heroSection {
     min-height: 100vh;
     background: linear-gradient(135deg, #5a3e36, #7b5a4f);
+}
+
+#categoriesNav {
+    background: linear-gradient(135deg, #5a3e36, #7b5a4f);
+}
+
+#categoriesNav * {
+    color: rgb(244, 244, 244)
 }
 
 .register {
