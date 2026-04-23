@@ -2,7 +2,7 @@ const express = require("express")
 const bookRouter = express.Router();
 const {addBook, getAllBooks, updateData, getBook, deleteBook} = require("../controllers/bookController")
 const authentication = require("../middlewares/authentication")
-const {authorization, updateAuthorization} = require("../middlewares/authorization")
+const authorization = require("../middlewares/authorization")
 
 bookRouter.post("/", authentication, authorization("admin"), addBook);
 bookRouter.get("/", getAllBooks);

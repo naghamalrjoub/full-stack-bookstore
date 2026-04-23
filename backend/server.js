@@ -1,7 +1,9 @@
+require("dotenv").config()
 const express = require("express")
 const app = express()
+const cors = require("cors");
+app.use(cors())
 app.use(express.json());
-require("dotenv").config()
 const db = require("./models/db")
 
 const apiRouter = require("./routes/api")

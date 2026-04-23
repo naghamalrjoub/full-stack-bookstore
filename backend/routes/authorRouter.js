@@ -2,7 +2,7 @@ const express = require("express");
 const authorRouter = express.Router();
 const {addAuthor, getAuthors, getAuthor, updateAuthor, deleteAuthor} = require("../controllers/authorController")
 const authentication = require("../middlewares/authentication")
-const {authorization, updateAuthorization} = require("../middlewares/authorization")
+const authorization = require("../middlewares/authorization")
 
 authorRouter.post("/", authentication, authorization("admin"), addAuthor)
 authorRouter.get("/", getAuthors)

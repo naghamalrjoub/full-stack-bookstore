@@ -18,7 +18,11 @@ const addBook = async (req, res) => {
 }
 
 const getAllBooks = (req, res) => {
-    bookModel.find({}).populate("author").then((result)=>{
+    const limit = parseInt(req.query.limit) || 0;
+    const {category} = req.query
+    const filter = category ? {category} : {}
+
+    bookModel.find(filter).populate("author").limit(limit).then((result)=>{
         res.status(200).json(result)
     }).catch((err)=>{
         res.status(500).json(err)
