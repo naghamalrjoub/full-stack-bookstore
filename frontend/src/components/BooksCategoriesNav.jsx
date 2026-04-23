@@ -19,6 +19,11 @@ const BooksCategoriesNav = () => {
                     </button>     
                     <div className="collapse navbar-collapse d-flex align-items-center justify-content-center" id="categories">
                         <ul className="navbar-nav d-flex justify-content-center gap-4">
+                            <li className="nav-item">
+                                <Link className='nav-link' to={`/Books`}>
+                                all
+                                </Link>                                      
+                            </li>
                             {
                                 queries.map((q, i)=>{
                                     return (

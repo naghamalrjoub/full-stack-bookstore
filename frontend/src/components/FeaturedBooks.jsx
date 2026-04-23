@@ -3,18 +3,11 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import FeaturedBook from './FeaturedBook'
 
-const books = [
-    { id: 1, title: "The Alchemist", author: "Paulo Coelho", price: 12.99, bg: "#6D4C41" },
-    { id: 2, title: "Sapiens", author: "Yuval Noah Harari", price: 14.99, bg: "#5D4037" },
-    { id: 3, title: "Atomic Habits", author: "James Clear", price: 13.99, bg: "#8D6E63" },
-    { id: 4, title: "1984", author: "George Orwell", price: 9.99, bg: "#795548" },
-]
-
 const FeaturedBooks = () => {
 
     const [books, setBooks] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:5000/api/book?limit=8").then((result)=>{
+        axios.get(`http://localhost:5000/api/book?limit=8`).then((result)=>{
             console.log(result.data)
             setBooks(result.data)
         }).catch((err)=>{

@@ -5,7 +5,15 @@ const FeaturedBook = ({price, title, author, image, id}) => {
   return (
     <div className='card category-card h-100'>
 
-        <img className="d-flex align-items-center justify-content-center rounded-top-2" style={{height: "17rem"}} src={image} />
+        {
+            image?        
+            <img className="d-flex align-items-center justify-content-center rounded-top-2" style={{height: "15rem"}} src={image} />
+            :
+            <div className="d-flex align-items-center text-center rounded-top-2" style={{backgroundColor: "rgb(85, 40, 40)", height:"15rem"}}>
+                <span style={{color: "#F5EFE6"}}>{title}</span>
+            </div>
+        }
+
 
         <div className="card-body d-flex flex-column">
             <h6 className="card-title">{title}</h6>

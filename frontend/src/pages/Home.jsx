@@ -12,7 +12,7 @@ const Home = () => {
             <Categories />   
         </div>
         <div data-aos="fade-up">
-            <FeaturedBooks />
+            <FeaturedBooks limit={"?limit=8"}/>
         </div>
         
     </div>
