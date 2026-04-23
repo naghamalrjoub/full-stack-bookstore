@@ -3,6 +3,11 @@ import Category from './Category'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 
+const queries = [
+    "philosophy", "history", "religion",
+    "fiction", "fantasy", "science-fiction",
+    "mystery", "horror", "self-help"
+];
 const Categories = () => {
 
 
@@ -13,16 +18,16 @@ const Categories = () => {
         </h3>
         <div className="scroll gap-4 d-flex mt-5 pt-2">
             
-            <Category title={"Classics"}></Category>
-            <Category title={"Romance"}></Category>
-            <Category title={"Sci-fi"}></Category>
-            <Category title={"History"}></Category>
-            <Category title={"Fiction"}></Category>
-            <Link to={"/categories"} className="card category-card" style={{width: "17rem"}}>
-                    <div className="card-body d-flex align-items-center justify-content-center">
-                        <h5 className="card-title mt-2">view more</h5>
-                    </div>
-            </Link>
+            {
+                queries.map((q, i)=>{
+                    return (
+                        <Link className='nav-link' to={`/Books/?category=${q}`}>
+                            <Category title={q}></Category>
+                        </Link>                                      
+                    )
+                })
+            }
+            
         </div>
     </div>
   )
