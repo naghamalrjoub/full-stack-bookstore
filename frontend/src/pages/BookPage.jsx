@@ -10,33 +10,36 @@ const BookPage = () => {
     const {id} = useParams()
     const [book, setBook] = useState(null);
     const {addToCart} = useCart()
-    const {addToFavourites, removeFromFavourites} = useFavourites();
-    const {addToWishlist, removeFromWishlist} = useWishlist();
+    const {addToFavourites, removeFromFavourites, favourites} = useFavourites();
+    const {addToWishlist, removeFromWishlist, wishlist} = useWishlist();
     const [wished, setWished] = useState(false)
     const [faved, setFaved] = useState(false)
 
     const handleAddToCart = async () => {
-        await addToCart(book._id)
+        try {
+            await addToCart(id)
+        }
+        catch(err) {
+            console.log(err)
+        }
     }
 
     const handleWishlist = async () => {
-        if (!wished) {
-            addToWishlist(book._id)
+        try {
+            await addToWishlist(id)
         }
-        else {
-            removeFromWishlist(book._id)
+        catch(err) {
+            console.log(err)
         }
-        setWished(!wished)
     }
 
     const handleFavourite = async () => {
-        if (!faved) {
-            addToFavourites(book._id)
+        try {
+            await addToFavourites(id)
         }
-        else {
-            removeFromFavourites(book._id)
+        catch(err) {
+            console.log(err)
         }
-        setFaved(!faved)
     }
 
     useEffect(()=>{
@@ -75,8 +78,8 @@ const BookPage = () => {
                         <div className='d-flex justify-content-between'>
                             <button className='btn navButton' onClick={handleAddToCart}>Add to cart</button>
                             <div className='d-flex gap-2'>
-                                <button className='btn btn-outline-danger' onClick={handleWishlist}>{wished ? '♥' : '♡'} Wishlist</button>
-                                <button className='btn btn-outline-success' onClick={handleFavourite}>{faved ? '★' : '☆'} Favourite</button>                                
+                                <button className='btn btn-outline-danger' onClick={handleWishlist}>♡ Wishlist</button>
+                                <button className='btn btn-outline-success' onClick={handleFavourite}>☆ Favourite</button>                                
                             </div>
 
                         </div>

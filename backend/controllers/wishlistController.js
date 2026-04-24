@@ -49,6 +49,7 @@ const addToWishlist = async (req, res) => {
                     })
 
                     const saved = await wishlist.save()
+                    await saved.populate("items.book")
                     res.status(201).json(saved)
                 }
             }
@@ -92,6 +93,7 @@ const removeFromWishlist = async (req, res) => {
                     })
 
                     const saved = await wishlist.save()
+                    await saved.populate("items.book")
                     res.status(201).json(saved)
                 }
             }

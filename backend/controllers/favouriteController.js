@@ -47,6 +47,7 @@ const addToFavourite = async (req, res) => {
                     })
 
                     const saved = await favourite.save()
+                    await saved.populate("items.book")
                     res.status(201).json(saved)
                 }
             }
@@ -89,6 +90,7 @@ const removeFromFavourite = async (req, res) => {
                     })
 
                     const saved = await favourite.save()
+                    await saved.populate("items.book")
                     res.status(201).json(saved)
                 }
             }
