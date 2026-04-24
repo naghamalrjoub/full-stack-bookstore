@@ -30,7 +30,7 @@ const DisplayBooks = () => {
 <div className="row mx-4" data-aos="fade-up">
     {
         books.map(elem => (
-            <div key={elem._id} className="col-md-2 mb-4 g-5">
+            <div key={elem._id} className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 g-5">
                 <FeaturedBook title={elem.title} price={elem.price} author={elem.author.name} image={elem.image} id={elem._id}
                 />
             </div>

@@ -13,12 +13,13 @@ const BooksCategoriesNav = () => {
         <nav className="navbar navbar-dark navbar-expand-lg" id='categoriesNav'>
             <div className="container-fluid d-flex">
                 <div className='vw-100 d-flex justify-content-between'>
-                    <p className='navbar-brand'>categories</p>
+                    <Link to={"/Books"} className='navbar-brand'>categories</Link>
                     <button className="navbar-toggler" type='button' data-bs-toggle="collapse" data-bs-target="#categories" aria-controls="categories" aria-expanded="false" aria-label="Toggle navigation">
                         <span className='navbar-toggler-icon'></span>
-                    </button>     
-                    <div className="collapse navbar-collapse d-flex align-items-center justify-content-center" id="categories">
-                        <ul className="navbar-nav d-flex justify-content-center gap-4">
+                    </button>
+                </div>     
+                    <div className="collapse navbar-collapse" id="categories">
+                        <ul className="navbar-nav vw-100 d-flex gap-4">
                             <li className="nav-item">
                                 <Link className='nav-link' to={`/Books`}>
                                 all
@@ -38,7 +39,6 @@ const BooksCategoriesNav = () => {
                         </ul>
                     </div>              
                 </div>
-            </div>
         </nav>
     </div>
   )

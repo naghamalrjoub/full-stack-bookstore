@@ -1,15 +1,20 @@
 import { createContext } from 'react'
 import API from '../api'
-import { useEffect } from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const [cart, setCart] = useState([])
+    const {user} = useAuth()
 
     useEffect(()=>{
         const getCart = async () => {
+            if (!user){
+                setCart([])
+                return;
+            } 
             try {
                 const res = await API.get("/user/cart")
                 setCart(res.data)                
@@ -21,7 +26,7 @@ export const CartProvider = ({children}) => {
 
         getCart();
 
-    },[])
+    },[user])
 
     const addToCart = async (bookId) => {
         try {

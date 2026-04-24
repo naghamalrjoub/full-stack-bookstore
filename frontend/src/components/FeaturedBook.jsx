@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 const FeaturedBook = ({price, title, author, image, id}) => {
+    const {addToCart} = useCart()
   return (
     <div className='card category-card h-100'>
 
@@ -14,16 +16,18 @@ const FeaturedBook = ({price, title, author, image, id}) => {
             </div>
         }
 
-        <Link to={`/books/${id}`} style={{textDecoration: "none", color:"inherit"}}>
-            <div className="card-body d-flex flex-column">
+        
+        <div className="card-body d-flex flex-column">
+            <Link to={`/books/${id}`} style={{textDecoration: "none", color:"inherit"}}>
                 <h6 className="card-title">{title}</h6>
                 <p className="card-text text-muted">{author}</p>
-                <div className="d-flex justify-content-between align-items-center mt-auto">
-                    <span className="fw-500">{price}$</span>
-                    <button className='btn btn-outline-primary navButton' style={{color: 'white'}}>add to cart</button>
-                </div>
+            </Link>
+            <div className="d-flex justify-content-between align-items-center mt-auto">
+                <span className="fw-500">{price}$</span>
+                <button className='btn btn-outline-primary navButton' style={{color: 'white'}} onClick={()=>addToCart(id)}>add to cart</button>
             </div>
-        </Link>
+        </div>
+        
     </div>
   )
 }

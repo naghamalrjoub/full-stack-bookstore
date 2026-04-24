@@ -16,13 +16,13 @@ AOS.init({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-        <CartProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>            
-        </CartProvider>
-    </AuthProvider>
+    <BrowserRouter>
+        <AuthProvider>
+            <CartProvider>
+                <App />           
+            </CartProvider>
+        </AuthProvider>
+    </BrowserRouter> 
 
   </StrictMode>
 )
