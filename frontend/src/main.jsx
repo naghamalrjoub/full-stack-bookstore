@@ -7,6 +7,8 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { AuthProvider } from './context/AuthContext.jsx'
+import { CartProvider } from './context/CartContext.jsx'
 
 AOS.init({
     duration: 600, once: true
@@ -14,9 +16,13 @@ AOS.init({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-    
+    <AuthProvider>
+        <CartProvider>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>            
+        </CartProvider>
+    </AuthProvider>
+
   </StrictMode>
 )

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
 
-    const isLoggedIn = false;
+    const [user, setUser] = useState(localStorage.getItem("token"))
 
   return (
     <div className='sticky-top'>
@@ -24,11 +24,8 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link to="/Books" className='nav-link'>Browse</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/About" className='nav-link'>About</Link>
-                        </li>
                         {
-                            isLoggedIn ? 
+                            user ? 
                             <>
                                 <li className="nav-item">
                                     <Link to="/Cart" className='nav-link'>Cart</Link>
