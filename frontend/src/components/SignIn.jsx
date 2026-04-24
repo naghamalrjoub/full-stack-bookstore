@@ -18,7 +18,8 @@ const SignIn = () => {
             })
 
             if (res.data.token) {
-                login(res.data.token)
+                console.log(res.data)
+                login(res.data.token, res.data.user)
                 navigate("/")
             }
                 

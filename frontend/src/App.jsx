@@ -11,6 +11,7 @@ import Wishlist from './pages/Wishlist'
 import Favourites from './pages/Favourites'
 import ProtectedRoute from './context/ProtectedRoute'
 import BookPage from './pages/BookPage'
+import Account from './pages/Account'
 
 function App() {
   return (
@@ -35,6 +36,11 @@ function App() {
             <Route path='/Favourites' element={
                 <ProtectedRoute>
                    <Favourites />
+                </ProtectedRoute>}>
+            </Route>
+            <Route path='/Account' element={
+                <ProtectedRoute>
+                   <Account />
                 </ProtectedRoute>}>
             </Route>
         </Routes>

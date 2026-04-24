@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom'
 
 const Navbar = () => {
 
-    const [user, setUser] = useState(localStorage.getItem("token"))
+    const [user, setUser] = useState(localStorage.getItem("user"))
+    const name = user?.split("\"")[1].split(" ")[0]
 
   return (
     <div className='sticky-top'>
@@ -37,7 +38,7 @@ const Navbar = () => {
                                     <Link to="/Favourites" className='nav-link'>Favourites</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/Account" className='btn btn-outline-primary navButton'>my account</Link>
+                                    <Link to="/Account" className='btn btn-outline-primary navButton'>{name}</Link>
                                 </li>
                             </>
                             :
