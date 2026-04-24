@@ -2,12 +2,15 @@ import { createContext } from 'react'
 import API from '../api'
 import { useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom'
 
+ 
 const CartContext = createContext();
 
 export const CartProvider = ({children}) => {
     const [cart, setCart] = useState([])
     const {user} = useAuth()
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const getCart = async () => {
@@ -30,6 +33,10 @@ export const CartProvider = ({children}) => {
 
     const addToCart = async (bookId) => {
         try {
+            if (!user) {
+                navigate("/login")
+                return
+            }
             const res = await API.patch(`/user/cart/${bookId}`)
             setCart(res.data)
         }

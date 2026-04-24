@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import API from '../api'
+import {useNavigate} from 'react-router-dom'
+
 
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({children}) => {
     const [wishlist, setWishlist] = useState([]);
     const user = useAuth();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const getWishlist = async () => {
@@ -29,6 +32,10 @@ export const WishlistProvider = ({children}) => {
 
     const addToWishlist = async (bookId) => {
         try {
+            if (!user) {
+                navigate("/login")
+                return;
+            }
             const res = await API.patch(`/user/wishlist/${bookId}`)
             setWishlist(res.data)
         }

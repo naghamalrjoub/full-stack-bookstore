@@ -17,15 +17,19 @@ const SignUp = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setError('')
         if (!email || !password || !username || !name) {
             setError("all fields are required")
+            return
         }
-        else if (password !== setPassword) {
+        else if (password !== conPass) {
             setError("make sure to write the password correctly")
+            return
         }
 
         else if (password.length < 8) {
             setError("minimum password length = 8!")
+            return
         }
 
         else {
@@ -34,14 +38,13 @@ const SignUp = () => {
                 const res = await API.post("/user/register", {
                     email, username, name, password
                 })
-
-                if (res.data.token) {
-                    login(res.data.token)
-                    navigate("/")
-                }                
+                console.log(res.data)
+                if (res.data) {
+                    navigate("/login")
+                }               
             }
             catch(err){
-                setError("registeration failed, try again")
+                setError("registration failed, try again")
             }
         }
     }
@@ -52,7 +55,7 @@ const SignUp = () => {
                 <h1 className="mb-3 text-center">Create account</h1>
                 <div>
                     <div className="mb-3">
-                        <lable className="form-label">Email</lable>
+                        <label className="form-label">Email</label>
                         <input type="email" className="form-control" placeholder='john.doe@gmail.com' onChange={(e)=>{setEmail(e.target.value)}}/>
                     </div>
                     <div className="mb-3">

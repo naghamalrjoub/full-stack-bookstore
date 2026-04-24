@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import API from '../api'
+import {useNavigate} from 'react-router-dom'
 
 const FavouritesContext = createContext();
 
 export const FavouritesProvider = ({children}) => {
     const [favourites, setFavourites] = useState([]);
     const user = useAuth();
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const getFavourites = async () => {
@@ -29,6 +31,10 @@ export const FavouritesProvider = ({children}) => {
 
     const addToFavourites = async (bookId) => {
         try {
+            if (!user) {
+                navigate("/login")
+                return
+            }
             const res = await API.patch(`/user/favourites/${bookId}`)
             setFavourites(res.data)
         }

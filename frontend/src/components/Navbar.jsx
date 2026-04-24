@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import {useAuth} from '../context/AuthContext'
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
 
-    const [user, setUser] = useState(localStorage.getItem("user"))
-    const name = user?.split("\"")[1].split(" ")[0]
+   const {user} = useAuth()
+    console.log(user)
+    const name = user
 
   return (
     <div className='sticky-top'>

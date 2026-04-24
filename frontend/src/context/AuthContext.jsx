@@ -9,13 +9,14 @@ export const AuthProvider = ({children}) => {
 
     const login = (_token, userData) => {
         localStorage.setItem("token", _token)
-        localStorage.setItem("user")
+        localStorage.setItem("user", userData)
         setUser(userData)
         setToken(_token)
     }
 
     const logout = () => {
         localStorage.removeItem("token")
+        localStorage.removeItem("user")
         setUser(null)
         setToken(null)
     }

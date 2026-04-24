@@ -9,7 +9,7 @@ const Account = () => {
     const {user, logout} = useAuth()
     
     console.log(user)
-    const name = user?.split("\"")[1].split(" ")[0]
+    const name = user?.split(" ")[0]
     console.log(name)
     const {cart} = useCart()
     const {favourites} = useFavourites()
