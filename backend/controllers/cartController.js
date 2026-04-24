@@ -5,7 +5,7 @@ const getCart = async (req, res) => {
     const id = req.user._id;
     console.log(id)
     try {
-        const cart = await cartModel.findOne({userId: id}).populate("userId items.book")
+        const cart = await cartModel.findOne({userId: id}).populate("userId items.book items.book.author")
         if (!cart) {
             res.status(404).json("not found")
         }
@@ -21,7 +21,7 @@ const getCart = async (req, res) => {
 }
 
 const addToCart = async (req, res) => {
-    const {id} = req.user._id;
+    const id = req.user._id;
     const {bookId} = req.params;
     console.log(bookId)
 
@@ -90,6 +90,7 @@ const removeWholeItem = async (req, res) => {
                 })
 
                 const saved = await cart.save()
+                await saved.populate("items.book")
                 res.status(200).json(saved)
             }
         }
@@ -129,6 +130,7 @@ const decItem = async (req, res) => {
                     })
 
                 const saved = await cart.save()
+                await saved.populate("items.book")
                 res.status(200).json(saved)
             }
         }
@@ -146,9 +148,9 @@ const incItem = async (req, res) => {
     const id = req.user._id;
     const {bookId} = req.params;
     try {
-
+        const cart = await cartModel.findOne({userId: id})
         if (cart) {
-            const cart = await cartModel.findOne({userId: id})
+            
             let book = cart.items.find(elem => {
                 return elem.book.toString() === bookId
             })
@@ -163,6 +165,7 @@ const incItem = async (req, res) => {
                 book.quantity += 1;
 
                 const saved = await cart.save()
+                await saved.populate("items.book")
                 res.status(200).json(saved)
             }
         }

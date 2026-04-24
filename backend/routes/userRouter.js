@@ -16,6 +16,6 @@ userRouter.patch("/", authentication, authorization("user"), updateData)
 userRouter.patch("/:id", authentication, authorization("admin"), updateData)
 userRouter.use("/cart", authentication, authorization("admin", "user"), cartRouter)
 userRouter.use("/wishlist", authentication, authorization("admin", "user"), wishlistRouter)
-userRouter.use("/favourite", authentication, authorization("admin", "user"), favouriteRouter)
+userRouter.use("/favourites", authentication, authorization("admin", "user"), favouriteRouter)
 
 module.exports = userRouter;

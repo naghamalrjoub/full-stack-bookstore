@@ -19,8 +19,8 @@ const FeaturedBook = ({price, title, author, image, id}) => {
         
         <div className="card-body d-flex flex-column">
             <Link to={`/books/${id}`} style={{textDecoration: "none", color:"inherit"}}>
-                <h6 className="card-title">{title}</h6>
-                <p className="card-text text-muted">{author}</p>
+            <h6 className="card-title">{title}</h6>
+            <p className="card-text text-muted">{author}</p>
             </Link>
             <div className="d-flex justify-content-between align-items-center mt-auto">
                 <span className="fw-500">{price}$</span>

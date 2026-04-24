@@ -9,6 +9,8 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { CartProvider } from './context/CartContext.jsx'
+import { WishlistProvider } from './context/WishlistContext.jsx'
+import { FavouritesProvider } from './context/FavouritesContext.jsx'
 
 AOS.init({
     duration: 600, once: true
@@ -19,7 +21,11 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         <AuthProvider>
             <CartProvider>
-                <App />           
+                <WishlistProvider>
+                    <FavouritesProvider>
+                        <App />
+                    </FavouritesProvider>
+                </WishlistProvider>
             </CartProvider>
         </AuthProvider>
     </BrowserRouter> 

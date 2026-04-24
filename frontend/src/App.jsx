@@ -10,6 +10,7 @@ import Cart from './pages/Cart'
 import Wishlist from './pages/Wishlist'
 import Favourites from './pages/Favourites'
 import ProtectedRoute from './context/ProtectedRoute'
+import BookPage from './pages/BookPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/Books' element={<Books />}></Route>
+            <Route path='/Books/:id' element={<BookPage />}></Route>
             <Route path='/Register' element={<Register />}></Route>
             <Route path='/Login' element={<Login />}></Route>
             <Route path='/Cart' element={
